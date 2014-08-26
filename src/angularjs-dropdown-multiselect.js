@@ -19,7 +19,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 			var groups = attrs.groupBy ? true : false;
 
 			var template = '<div class="multiselect-parent btn-group dropdown-multiselect">';
-			template +='<button type="button" class="dropdown-toggle" ng-class="settings.buttonClasses" ng-click="toggleDropdown()"><i class="fa fa-filter"></i><span class="caret"></span></button>';
+			template +='<button type="button" class="dropdown-toggle" ng-class="settings.buttonClasses" ng-click="toggleDropdown()"><span ng-bind-html="getButtonText()"></span></button>';
 			template += '<ul class="dropdown-menu dropdown-menu-form" ng-style="{display: open ? \'block\' : \'none\'}">';
 			template += '<li ng-hide="!settings.showCheckAll || settings.selectionLimit > 0"><a data-ng-click="selectAll()"><span class="glyphicon glyphicon-ok"></span>  {{texts.checkAll}}</a>';
 			template += '<li ng-show="settings.showUncheckAll"><a data-ng-click="deselectAll();"><span class="glyphicon glyphicon-remove"></span>   {{texts.uncheckAll}}</a></li>';
@@ -118,7 +118,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
 			angular.extend($scope.settings, $scope.extraSettings || []);
 			angular.extend($scope.externalEvents, $scope.events || []);
-            angular.extend($scope.texts, $scope.translationTexts);
+                        angular.extend($scope.texts, $scope.translationTexts);
 
 			$scope.singleSelection = $scope.settings.selectionLimit === 1;
 
@@ -200,16 +200,16 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
 					if (totalSelected === 0)
 					{
-						return $scope.texts.buttonDefaultText;
+						return '<i class="fa fa-filter empty-checked-list">';
 					}
 					else
 					{
-						return totalSelected + ' ' + $scope.texts.dynamicButtonTextSuffix;
+						return '<i class="fa fa-filter">';
 					}
 				}
 				else
 				{
-					return $scope.texts.buttonDefaultText;
+					return '<i class="fa fa-filter">';
 				}
 			};
 
