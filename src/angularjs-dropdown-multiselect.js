@@ -200,16 +200,16 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
 					if (totalSelected === 0)
 					{
-						return '<i class="fa fa-filter empty-checked-list">';
+						return '<i class="fa fa-filter empty-checked-list"></i>';
 					}
 					else
 					{
-						return '<i class="fa fa-filter">';
+						return '<i class="fa fa-filter"></i>';
 					}
 				}
 				else
 				{
-					return '<i class="fa fa-filter">';
+					return '<i class="fa fa-filter"></i>';
 				}
 			};
 
