@@ -58,7 +58,7 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 		},
 		link: function($scope, $element, $attrs){
 			$scope.toggleDropdown = function()
-			{
+			{                               
 				$scope.open = !$scope.open;
 			};
 
@@ -87,10 +87,10 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 				externalIdProp: 'id',
 				enableSearch: false,
 				selectionLimit: 0,
-                showCheckAll: true,
-                showUncheckAll: true,
+                                showCheckAll: false,
+                                showUncheckAll: true,
 				closeOnSelect: false,
-                buttonClasses: 'btn btn-default',
+                                buttonClasses: 'btn btn-default',
 				closeOnDeselect: false,
 				groupBy: $attrs.groupBy || undefined,
 				groupByTextProvider: null
@@ -167,9 +167,15 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
 					if (!parentFound) {
 						$scope.$apply(function () {
-							$scope.open = false;
+                                                    $scope.open = false;                                                       
 						});
 					}
+                                        
+                                        if ((parentFound)&&(!($(target).is($element)))) {
+                                                $scope.$apply(function () {
+                                                    $scope.open = false;                                                   
+						});
+                                        }
 				});
 			}
 
@@ -200,16 +206,16 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 
 					if (totalSelected === 0)
 					{
-						return '<i class="fa fa-filter empty-checked-list"></i>';
+						return '<i class="fa fa-filter empty-filter">';
 					}
 					else
 					{
-						return '<i class="fa fa-filter"></i>';
+						return '<i class="fa fa-filter">';
 					}
 				}
 				else
 				{
-					return '<i class="fa fa-filter"></i>';
+					return '<i class="fa fa-filter">';
 				}
 			};
 
