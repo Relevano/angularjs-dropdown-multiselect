@@ -152,32 +152,39 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 					clearObject($scope.selectedModel);
 				}
 			}
+                        
+                        var clickFunction = function(e) {
+                            var target = e.target.parentElement;
+                            var parentFound = false;
 
+                            while (angular.isDefined(target) && target !== null && !parentFound) {
+                                if (_.contains(target.classList, 'multiselect-parent') && !parentFound) {
+                                    parentFound = true;
+                                }
+                                target = target.parentElement;
+                            }
+
+                            if (!parentFound) {
+                                $scope.$apply(function() {
+                                    $scope.open = false;
+                                });
+                            }
+
+                            if ((parentFound) && (!($(target).is($element)))) {
+                                $scope.$apply(function() {
+                                    $scope.open = false;
+                                });
+                            }
+                        };
+                        
 			if ($scope.settings.closeOnBlur) {
-				$document.on('click', function (e) {
-					var target = e.target.parentElement;
-					var parentFound = false;
-
-					while (angular.isDefined(target) && target !== null && !parentFound) {
-						if (_.contains(target.classList, 'multiselect-parent') && !parentFound) {
-							parentFound = true;
-						}
-						target = target.parentElement;
-					}
-
-					if (!parentFound) {
-						$scope.$apply(function () {
-                                                    $scope.open = false;                                                       
-						});
-					}
-                                        
-                                        if ((parentFound)&&(!($(target).is($element)))) {
-                                                $scope.$apply(function () {
-                                                    $scope.open = false;                                                   
-						});
-                                        }
-				});
+                            $document.on('click', clickFunction);
 			}
+                        
+                        $scope.$on('$destroy', function(){
+                            console.log("destr");
+                            $document.unbind('click', clickFunction);
+                        });
 
 			$scope.getGroupTitle = function(groupValue)
 			{
