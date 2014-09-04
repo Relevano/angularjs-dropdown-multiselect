@@ -182,7 +182,6 @@ directiveModule.directive('ngDropdownMultiselect', ['$filter', '$document', '$co
 			}
                         
                         $scope.$on('$destroy', function(){
-                            console.log("destr");
                             $document.unbind('click', clickFunction);
                         });
 
